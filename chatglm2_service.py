@@ -4,8 +4,6 @@ from flask import Flask
 from flask import request
 from transformers import AutoTokenizer, AutoModel
 
-# system params
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 
 tokenizer = AutoTokenizer.from_pretrained("chatglm2-6b", trust_remote_code=True)
 model = AutoModel.from_pretrained("chatglm2-6b", trust_remote_code=True).half().cuda()
