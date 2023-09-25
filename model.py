@@ -3,11 +3,14 @@ from transformers.utils import logging
 from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
 from langchain.llms.base import LLM
+from pydantic import Field
 
 logger = logging.get_logger(__name__)
 
 
 class ChatGLMModel(LLM):
+    path_or_name = Field(None, alias='path_or_name')
+
     def __init__(self, path_or_name):
         super(ChatGLMModel, self).__init__()
         self.path_or_name = path_or_name
@@ -22,6 +25,7 @@ class ChatGLMModel(LLM):
     @property
     def _identifying_params(self):
         return {
+            "path_or_name": self.path_or_name
         }
 
     def _call(self, prompt, memory):
