@@ -4,12 +4,15 @@ from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
 from langchain.llms.base import LLM
 from pydantic import Field
+from typing import Any
 
 logger = logging.get_logger(__name__)
 
 
 class ChatGLMModel(LLM):
-    path_or_name = Field(None, alias='path_or_name')
+    path_or_name: str = Field(None, alias='path_or_name')
+    tokenizer: Any = None
+    model: Any = None
 
     def __init__(self, path_or_name):
         super(ChatGLMModel, self).__init__()
