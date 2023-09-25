@@ -2,12 +2,9 @@ import os
 import json
 from flask import Flask
 from flask import request
-from transformers import AutoTokenizer, AutoModel
+from model import ChatGLMModel
 
-
-tokenizer = AutoTokenizer.from_pretrained("chatglm2-6b", trust_remote_code=True)
-model = AutoModel.from_pretrained("chatglm2-6b", trust_remote_code=True).half().cuda()
-model.eval()
+chatglm2 = ChatGLMModel("chatglm2-6b")
 
 app = Flask(__name__)
 
@@ -26,8 +23,8 @@ def chat():
     data_seq = request.get_data()
     data_dict = json.loads(data_seq)
     human_input = data_dict["human_input"]
-
-    response, _ = model.chat(tokenizer, human_input, history=[])
+    history = data_dict['history']
+    response, history = chatglm2(human_input, history=history)
 
     result_dict = {
         "response": response

@@ -6,6 +6,9 @@ from typing import Optional, List, Dict, Mapping, Any
 import langchain
 from langchain.llms.base import LLM
 from langchain.cache import InMemoryCache
+from langchain.chains.conversation.memory import ConversationBufferWindowMemory
+from langchain.chains import ConversationChain
+
 
 logging.basicConfig(level=logging.INFO)
 # 启动llm的缓存
@@ -76,7 +79,7 @@ if __name__ == "__main__":
 
         begin_time = time.time() * 1000
         # 请求模型
-        response = llm(human_input, stop=["you"])
+        response = llm(human_input, stop=["stop"])
         end_time = time.time() * 1000
         used_time = round(end_time - begin_time, 3)
         logging.info(f"chatGLM process time: {used_time}ms")
