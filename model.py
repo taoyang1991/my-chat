@@ -31,8 +31,8 @@ class ChatGLMModel(LLM):
             "path_or_name": self.path_or_name
         }
 
-    def _call(self, prompt, stop, memory):
-        response, _ = self.model.chat(self.tokenizer, prompt, history=memory)
+    def _call(self, prompt, stop):
+        response, _ = self.model.chat(self.tokenizer, prompt)
         return response
 
 
