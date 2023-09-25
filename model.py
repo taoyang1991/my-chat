@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, AutoModel
 from transformers.utils import logging
-from langchain.memory import ChatMessageHistory
+from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
 from langchain.llms.base import LLM
 
@@ -36,7 +36,7 @@ class ChatGLMModel():
             input_variables=["chat_history", "human_input"], template=template
         )
 
-        memory = ChatMessageHistory(memory_key="chat_history")
+        memory = ConversationBufferMemory(memory_key="chat_history")
 
         memory.chat_memory.add_user_message("你好!")
         memory.chat_memory.add_ai_message("你好， 我是你的私人AI助手小I")
