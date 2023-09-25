@@ -22,7 +22,6 @@ class ChatGLMModel(LLM):
     @property
     def _identifying_params(self):
         return {
-            'path_or_name': self.path_or_name
         }
 
     def _call(self, prompt, memory):
